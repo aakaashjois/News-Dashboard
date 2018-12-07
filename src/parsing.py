@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 import requests
-import ArticleHelper
+from ArticleHelper import ArticleHelper
 from pymongo import MongoClient
 
 
@@ -13,14 +13,15 @@ def parse(url, state = '', category = ''):
         summary = helper.get_summary(article, 10)
         # Extract date
         post = {
-            'article': article,
+            'article': str(article),
             'summary': summary,
             'category': category,
             'state': state
         }
-        client = MongoClient('localhost', '8888')
+        client = MongoClient('localhost', 28000)
         db = client['article_database']
         table = db['article_table']
         posts = db.posts
         post_id = posts.insert_one(post).inserted_id
         print(post_id)
+parse('http://timesofindia.indiatimes.com/rssfeedstopstories.cms')
