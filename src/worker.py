@@ -15,15 +15,18 @@ def parse(url, state, category):
         summary = helper.get_summary(int(length * 0.2))
         date = item.pubDate.string
         post = {
-            'article':str(article).encode(encoding='utf-8', errors='ignore'),
-            'summary': str(summary).encode(encoding='utf-8', errors='ignore'),
-            'category': str(category).encode(encoding='utf-8', errors='ignore'),
-            'state': str(state).encode(encoding='utf-8', errors='ignore'),
-            'date': str(date).encode(encoding='utf-8', errors='ignore')
+            'article':str(article),
+            'summary': str(summary),
+            'category': str(category),
+            'state': str(state),
+            'date': str(date)
         }
         client = MongoClient('172.18.0.1', 8888)
         db = client['articles']
-        db.posts.insert_one(post)
+        try:
+            db.posts.insert_one(post)
+        except Exception as e:
+            continue
 
 if __name__ == '__main__':
     cluster = dispy.JobCluster(parse, depends=['./ArticleHelper.py'])
