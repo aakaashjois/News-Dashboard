@@ -16,11 +16,8 @@ class ArticleHelper:
 
     def get_article(self):
         sentences = [*self.article.document.sentences]
-        texts = []
-        for sentence in sentences:
-            text = sentence._text
-            texts.append(text)
-        return ' '.join(texts)
+        texts = [sentence._text for sentence in sentences]
+        return ' '.join(texts), len(sentences)
 
 
     def get_summary(self, num_sentences):
