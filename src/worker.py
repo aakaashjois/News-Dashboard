@@ -1,6 +1,6 @@
 import dispy, random
 import parsing
-cluster = dispy.JobCluster(parsing.parse)
+cluster = dispy.JobCluster(parsing.parse, depends=['./ArticleHelper.py'])
 jobs = []
 lines = None
 with open('../data.csv', 'r') as f:
@@ -12,7 +12,7 @@ for line in lines:
     jobs.append(job)
 # cluster.wait() # waits for all scheduled jobs to finish
 for job in jobs:
-    print(job()) # waits for job to finish and returns results
+    job() # waits for job to finish and returns results
     
     
 cluster.print_status()
