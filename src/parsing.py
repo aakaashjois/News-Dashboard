@@ -8,20 +8,23 @@ def parse(url, state = '', category = ''):
     soup = bs(requests.get(url).content, 'xml')
     result = []
     for item in soup.channel.find_all('item'):
-        helper = ArticleHelper()
-        article = helper.get_article(item.link.string)
-        summary = helper.get_summary(article, 10)
+        helper = ArticleHelper(item.link.string)
+        article = helper.get_article()
+        print(article)
+        summary = helper.get_summary(10)
+        print(summary)
         # Extract date
         post = {
-            'article': str(article),
-            'summary': summary,
-            'category': category,
-            'state': state
+            'article':str(article),
+            'summary': str(summary),
+            'category': str(category),
+            'state': str(state)
         }
-        client = MongoClient('localhost', 28000)
-        db = client['article_database']
+        client = MongoClient('localhost', 8888)
+        db = client['article_database2']
         table = db['article_table']
-        posts = db.posts
+        posts=db.posts
         post_id = posts.insert_one(post).inserted_id
         print(post_id)
-parse('http://timesofindia.indiatimes.com/rssfeedstopstories.cms')
+
+parse('https://timesofindia.indiatimes.com/rssfeedstopstories.cms')

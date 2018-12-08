@@ -6,17 +6,23 @@ from sumy.utils import get_stop_words
 
 
 class ArticleHelper:
-    def __init__(self):
+    def __init__(self, url):
         language = 'english'
         self.tokenizer = Tokenizer(language)
         self.summarizer = Summarizer(Stemmer(language))
         self.summarizer.stop_words = get_stop_words(language)
+        self.article = HtmlParser.from_url(url, self.tokenizer)
+        
+
+    def get_article(self):
+        sentences = [*self.article.document.sentences]
+        texts = []
+        for sentence in sentences:
+            text = sentence._text
+            texts.append(text)
+        return ' '.join(texts)
 
 
-    def get_article(self, url):
-        article = HtmlParser.from_url(url, self.tokenizer)
-        return article.document
-
-    def get_summary(self, article, num_sentences):
-        summary = [str(sentence) for sentence in self.summarizer(article, num_sentences)]
+    def get_summary(self, num_sentences):
+        summary = [str(sentence) for sentence in self.summarizer(self.article.document, num_sentences)]
         return ''.join(summary)
