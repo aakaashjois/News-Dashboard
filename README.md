@@ -22,3 +22,7 @@ The Authors of this project are:
 - [Bhavana Ramakrishna](https://github.com/BhavanaRamakrishna)
 - [Gahan Jagadeesh](https://github.com/GahanJagadeesh)
 - [Mohammed Affan Vuppukar](https://github.com/affanv14)
+
+### Can I copy or contribute?
+
+This project is relased under Apache License, Version 2.0. The details of the License can be found in [LICENSE](./LICENSE). Feel free to fork the project and send pull requests.
