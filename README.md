@@ -8,7 +8,7 @@ News Dashboard is a large scale news summarizer working to simplify the lives of
 
 ### How to run it?
 
-All the steps needs to run News Dashboard is described in [SETUP](./SETUP.md).
+All the steps needed to run News Dashboard is described in [SETUP](./SETUP.md).
 
 ### Where is everything documented?
 
